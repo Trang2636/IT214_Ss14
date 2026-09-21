@@ -1,0 +1,48 @@
+### 1. Thành công Flight + Hotel + Payment
+POST http://localhost:8080/api/v1/combo-orders
+Content-Type: application/json
+
+{
+  "customerId": "CUS-001",
+  "flightId": "VN123",
+  "hotelId": "HTL-001",
+  "amount": 3500000,
+  "scenario": "SUCCESS"
+}
+
+### 2. Flight thành công, Hotel thất bại -> hủy Flight
+POST http://localhost:8080/api/v1/combo-orders
+Content-Type: application/json
+
+{
+  "customerId": "CUS-002",
+  "flightId": "VN234",
+  "hotelId": "HTL-002",
+  "amount": 4200000,
+  "scenario": "HOTEL_FAILURE"
+}
+
+### 3. Payment thất bại -> hủy Hotel và Flight
+POST http://localhost:8080/api/v1/combo-orders
+Content-Type: application/json
+
+{
+  "customerId": "CUS-003",
+  "flightId": "VN345",
+  "hotelId": "HTL-003",
+  "amount": 5100000,
+  "scenario": "PAYMENT_FAILURE"
+}
+
+### 4. Hotel phản hồi 5 giây; client timeout 2 giây và retry 3 lần -> rollback
+POST http://localhost:8080/api/v1/combo-orders
+Content-Type: application/json
+
+{
+  "customerId": "CUS-004",
+  "flightId": "VN456",
+  "hotelId": "HTL-004",
+  "amount": 2900000,
+  "scenario": "HOTEL_TIMEOUT"
+}
+
